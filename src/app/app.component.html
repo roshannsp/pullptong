@@ -1,7 +1,7 @@
 <app-loading-screen></app-loading-screen>
 <nav class="navbar navbar-light bg-light">
   <span
-    ><a *ngIf="!['/menu', ['/login']].includes(router.url)" (click)="back()"><i class="fa fa-chevron-left"></i></a
+    ><a *ngIf="!['/menu', '/login'].includes(router.url)" (click)="back()"><i class="fa fa-chevron-left"></i></a
   ></span>
   <div *ngIf="user" class="d-flex align-items-center">
     <span>{{ user.displayName }}</span>
