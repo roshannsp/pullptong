@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~node_modules/bootstrap/scss/bootstrap';
+
+body {
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  font-family: 'Roboto', sans-serif;
+  color: #39464d;
+}
+
+.roller .er-item {
+  width: 200px !important;
+  height: 200px !important;
+  font-size: 14px;
+}

@@ -1,0 +1,22 @@
+.card {
+  border: 0;
+  .image {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      position: absolute;
+      &.image-vertical {
+        height: auto;
+        width: 100%;
+      }
+      &.image-horizontal {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+}
