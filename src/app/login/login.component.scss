@@ -1,0 +1,20 @@
+.social-btn {
+  .btn {
+    border: none;
+    margin: 10px 3px 0;
+    opacity: 1;
+    color: white;
+    .fa {
+      margin-right: 0.5rem;
+    }
+    &.facebook {
+      background: #375795;
+    }
+    &.twitter {
+      background: #1da1f2;
+    }
+    &.google {
+      background: #df4930;
+    }
+  }
+}

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 
 @Component({
   selector: 'app-countdown',
   templateUrl: './countdown.component.html',
   styleUrls: ['./countdown.component.scss']
 })
-export class CountdownComponent implements OnInit {
+export class CountdownComponent implements OnInit, OnDestroy {
   targetDate: number
   timer: any
   interval: any
   alpha = 0
+
   constructor() {}
 
   ngOnInit() {
@@ -30,5 +31,9 @@ export class CountdownComponent implements OnInit {
       clearInterval(this.interval)
       this.timer = `LET'S DATE <3`
     }
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval)
   }
 }
