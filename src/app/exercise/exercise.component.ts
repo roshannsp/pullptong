@@ -30,11 +30,11 @@ export class ExerciseComponent implements OnInit {
     restTimeMinute: number
     restTimeSecond: number
   } = {
-    numberOfSet: 1,
+    numberOfSet: 8,
     exerciseTimeMinute: 0,
-    exerciseTimeSecond: 1,
+    exerciseTimeSecond: 20,
     restTimeMinute: 0,
-    restTimeSecond: 1
+    restTimeSecond: 10
   }
 
   constructor() {}
