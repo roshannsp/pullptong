@@ -44,6 +44,12 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
+  {
+    path: 'exercise',
+    loadChildren: () => import('./exercise/exercise.module').then(mod => mod.ExerciseModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
   { path: '**', redirectTo: 'menu', pathMatch: 'full' }
 ]
 

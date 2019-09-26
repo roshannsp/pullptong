@@ -1,0 +1,66 @@
+<div class="vh-100 container d-flex justify-content-center align-items-center flex-column">
+  <h1 *ngIf="!running" class="mb-5">Exercise Counter</h1>
+  <form *ngIf="!running" class="px-3" [formGroup]="exerciseFormGroup" (ngSubmit)="start()">
+    <div class="form-group">
+      <label for="numberOfSet">Number of Set</label>
+      <input
+        #numberOfSetForm
+        type="number"
+        class="form-control form-control-lg"
+        id="numberOfSet"
+        placeholder="5"
+        formControlName="numberOfSet"
+      />
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label for="exerciseTimeMinute">Exercise Time</label>
+        <input
+          type="number"
+          class="form-control form-control-lg"
+          id="exerciseTimeMinute"
+          placeholder="1"
+          formControlName="exerciseTimeMinute"
+        />
+      </div>
+      <div class="form-group col-6">
+        <label for="exerciseTimeSecond">&nbsp;</label>
+        <input
+          type="number"
+          class="form-control form-control-lg"
+          id="exerciseTimeSecond"
+          placeholder="30"
+          formControlName="exerciseTimeSecond"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label for="restTimeMinute">Rest Time</label>
+        <input type="number" class="form-control form-control-lg" id="restTimeMinute" placeholder="1" formControlName="restTimeMinute" />
+      </div>
+      <div class="form-group col-6">
+        <label for="restTimeSecond">&nbsp;</label>
+        <input type="number" class="form-control form-control-lg" id="restTimeSecond" placeholder="30" formControlName="restTimeSecond" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6 text-center">
+        <h1>{{ totalTime }}</h1>
+      </div>
+      <div class="form-group col-6">
+        <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="exerciseFormGroup.invalid">Start</button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="running" class="w-75 h-50 d-flex justify-content-around align-items-center flex-column">
+    <h1>{{ 'Set ' + currentSet + ' of ' + data.numberOfSet }}</h1>
+    <h1 [style.color]="phase === 'Rest Time' ? 'green' : 'red'">{{ phase }}</h1>
+    <h1 style="font-size: 75px">&nbsp;{{ timer }}</h1>
+    <button *ngIf="timer !== 'FINISHED'" type="button" class="btn btn-warning btn-block btn-lg" (click)="stop()">Stop</button>
+    <div *ngIf="timer === 'FINISHED'" class="w-100 d-flex justify-content-around align-items-center flex-row">
+      <button type="button" class="btn btn-danger btn-block btn-lg" style="margin-right: 10px" (click)="restart()">Restart</button>
+      <button type="button" class="btn btn-primary btn-block btn-lg mt-0" (click)="stop()">Reset</button>
+    </div>
+  </div>
+</div>
