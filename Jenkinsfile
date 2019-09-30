@@ -1,15 +1,21 @@
 pipeline {
     agent {
-        docker { 
-            image 'docker:18.05-dind' 
-            args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
-        }
+        label 'docker'
     }
     environment {
         GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
         DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
     }
     stages {
+        state('Docker node') {
+            agent {
+                docker { 
+                    label 'docker'
+                    image 'docker:18.05-dind' 
+                    args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+        }
         stage('Build'){
             when {
                 branch 'master'
