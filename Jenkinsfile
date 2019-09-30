@@ -7,7 +7,7 @@ pipeline {
         DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
     }
     stages {
-        state('Docker node') {
+        stage('Docker node') {
             agent {
                 docker { 
                     label 'docker'
