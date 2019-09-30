@@ -1,11 +1,11 @@
 pipeline {
     agent none
-    environment {
-        GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
-        DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
-    }
     stages {
         stage('Build'){
+            environment {
+                GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
+                DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
+            }
             agent {
                 docker { 
                     image 'docker:18.05-dind' 
