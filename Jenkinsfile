@@ -12,9 +12,6 @@ pipeline {
                     args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
-            when {
-                branch 'master'
-            }
             steps {
                 sh '''
                 docker info
@@ -33,9 +30,6 @@ pipeline {
                 HEALTHCHECK_PATH = "/healthz"
                 K8S_SERVER_PASS = "qazwsx123@@"
                 K8S_SERVER_URL = "119.59.113.182"
-            }
-            when {
-                branch 'master'
             }
             agent {
                 docker {
