@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pullptong-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pullptong-client
+  template:
+    metadata:
+      labels:
+        app: pullptong-client
+    spec:
+      containers:
+        - name: pullptong-client
+          image: asia.gcr.io/pullptong/pullptong:latest
+          resources:
+            requests:
+              cpu: 200m
+              memory: 64Mi
+            limits:
+              memory: 128Mi
+              cpu: 300m
+          ports:
+            - containerPort: 7000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pullptong-client
+spec:
+  selector:
+    app: pullptong-client
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 7000
