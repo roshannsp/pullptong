@@ -9,4 +9,5 @@ pipeline {
         GCP_ACCESS_KEY = credentials('SPIN_GCP_DEV_SERVICE_ACC')
         DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
     }
+    
 }
