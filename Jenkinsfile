@@ -7,7 +7,7 @@ pipeline {
         DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
     }
     stages {
-        stage('Docker node') {
+        stage('Build'){
             agent {
                 docker { 
                     label 'docker'
@@ -15,8 +15,6 @@ pipeline {
                     args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
-        }
-        stage('Build'){
             when {
                 branch 'master'
             }
