@@ -1,4 +1,5 @@
 pipeline {
+    agent none
     environment {
         GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
         DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
