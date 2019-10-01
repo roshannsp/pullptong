@@ -36,7 +36,7 @@ pipeline {
                 '''
                 sh '''
                 mkdir ${HOME}/.kube
-                cp ${K8S_CONFIG_FILE}
+                cp ${K8S_CONFIG_FILE} ${HOME}/.kube
                 envsubst < deployment.yaml > patch-deployment.yaml
                 kubectl apply -f patch-deployment.yaml
                 kubectl rollout status deployment/${PROJECT_NAME} --timeout=3m
