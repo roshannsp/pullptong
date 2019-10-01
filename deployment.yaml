@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: pullptong-client
-          image: asia.gcr.io/pullptong/pullptong:latest
+          image: $DOCKER_REPOSITORY:$GIT_COMMIT
           resources:
             requests:
               cpu: 200m

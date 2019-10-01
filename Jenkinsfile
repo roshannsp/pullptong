@@ -1,16 +1,15 @@
 pipeline {
-    agent none
+    agent {
+        docker { 
+            image 'docker:18.05-dind' 
+            args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     stages {
         stage('Build'){
             environment {
                 GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
                 DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
-            }
-            agent {
-                docker { 
-                    image 'docker:18.05-dind' 
-                    args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
-                }
             }
             steps {
                 sh '''
@@ -25,25 +24,21 @@ pipeline {
         }
         stage('Deployment'){
             environment {
+                K8S_CONFIG_FILE = credentials('K8S_CONFIG')
                 PROJECT_NAME = "pullptong"
                 GOOGLE_PROJECT_ID = "pullptong"
-                HEALTHCHECK_PATH = "/healthz"
-                K8S_SERVER_PASS = "qazwsx123@@"
-                K8S_SERVER_URL = "119.59.113.182"
-            }
-            agent {
-                docker {
-                    image 'lachlanevenson/k8s-kubectl:v1.16.0'
-                }
             }
             steps {
                 sh '''
-                apk add gettext sshpass
+                apk add gettext sshpass curl git
+                curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl
+                chmod u+x kubectl && mv kubectl /bin/kubectl
                 '''
                 sh '''
-                sshpass -p "${K8S_SERVER_PASS}" scp -r root@${K8S_SERVER_URL}:/root/.kube /root/.kube
-                envsubst < ci-cd/deployment.yaml > ci-cd/patch-deployment.yaml
-                kubectl apply -f ci-cd/patch-deployment.yaml
+                mkdir ${HOME}/.kube
+                cp ${K8S_CONFIG_FILE}
+                envsubst < deployment.yaml > patch-deployment.yaml
+                kubectl apply -f patch-deployment.yaml
                 kubectl rollout status deployment/${PROJECT_NAME} --timeout=3m
                 if [ $? -ne 0 ]; then
                     kubectl rollout undo deployment/${PROJECT_NAME}
