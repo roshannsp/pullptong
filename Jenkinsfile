@@ -25,7 +25,7 @@ pipeline {
         stage('Deployment'){
             environment {
                 K8S_CONFIG_FILE = credentials('K8S_CONFIG')
-                PROJECT_NAME = "pullptong"
+                PROJECT_NAME = "pullptong-client"
                 GOOGLE_PROJECT_ID = "pullptong"
             }
             steps {
