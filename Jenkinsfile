@@ -5,12 +5,12 @@ pipeline {
             args '-u root:root -p 3000:3000 --privileged -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
+    environment {
+        GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
+        DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
+    }
     stages {
         stage('Build'){
-            environment {
-                GCP_ACCESS_KEY = credentials('PULLPTONG_SERVICE_ACCOUNT')
-                DOCKER_REPOSITORY = "asia.gcr.io/pullptong/pullptong"
-            }
             steps {
                 sh '''
                 docker info
